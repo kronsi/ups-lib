@@ -1,4 +1,6 @@
-#ups-client
+# ups-client
+
+library to track, rate or ship something via UPS
 
 ## Install
 
