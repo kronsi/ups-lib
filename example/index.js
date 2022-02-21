@@ -16,6 +16,118 @@ var ups = new upsAPI({
 
 
 /**
+ * Ship
+ */
+
+ ups.ship({
+    Request: {      
+      TransactionReference: {
+          CustomerContext: ""
+      },      
+      RequestAction: "ShipConfirm",
+      RequestOption: "nonvalidate",
+    },    
+    Shipment: {        
+        Description: "My Shipment",
+        Shipper: {
+            Name: "",
+            AttentionName: "",
+            ShipperNumber: ups.options.ShipperNumber,
+            PhoneNumber: "",            
+            
+            Address: {
+                AddressLine: "",                
+                City: "",                
+                PostalCode: "",
+                CountryCode: ""
+            }
+        },
+        ShipTo: {
+            Name: "",
+            AttentionName: "",
+            PhoneNumber: "",
+            Address: {
+                AddressLine: "",
+                City: "",
+                StateProvinceCode: "",
+                PostalCode: "",
+                CountryCode: ""
+            }
+        },
+        PaymentInformation: {
+            ShipmentCharge: {
+                Type: "01",
+                BillShipper: {
+                    AccountNumber: ups.options.ShipperNumber
+                }                
+            }            
+        },        
+        Service: {
+            Code: "11",            
+        },
+        RateInformation: {
+            NegotiatedRatesIndicator: ""
+        },
+        ReferenceNumber: {
+            Code: "02",
+            Value: "my reference id"
+        },        
+        Package: {
+            Description: "Rate",
+            Packaging: {
+                Code: "02",//02=piece, 01=envelope            
+            },            
+            Dimensions: {
+                UnitOfMeasurement: {
+                    Code: "CM",
+                    Description: "centimeter"
+                },
+                Length: "10",
+                Width: "10",
+                Height: "1"
+            },
+            PackageWeight: {
+                UnitOfMeasurement: {
+                    Code: "KGS",
+                    Description: "KILLOGRAMM"
+                },
+                Weight: "1"
+            },
+            PackageServiceOptions: {
+                InsuredValue: {
+                    CurrencyCode: "EUR",
+                    MonetaryValue: 1
+                }
+            }            
+        }       
+    },
+    LabelSpecification: {
+        LabelPrintMethod: {
+            Code: "GIF",
+            Description: "gif file"
+        },
+        HTTPUserAgent: "Mozilla/4.5",
+        LabelStockSize: {
+            Height: 4,
+            Width: 8
+        },
+        LabelImageFormat: {
+            Code: "GIF",
+            Description: "gif file"
+        },
+    },
+    
+    
+    
+  }, function(err, res) {
+    if(err) {
+      return console.log("err:", err.detail.Errors);
+    }
+  
+    console.log(res);
+});
+
+/**
  * Pickup
  * 
  */
