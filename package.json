@@ -1,0 +1,23 @@
+{
+    "name": "@kronsi/ups",
+    "version": "1.0.8",
+    "author": "Sven Kronshage <sven@kronsi.com>",
+    "dependencies": {
+      "extend": "^3.0.2",
+      "soap": "^0.24.0",
+      "xml2js": "^0.4.12"
+    },
+    "description": "A library for using the UPS Express API",
+    "homepage": "https://github.com/kronsi/ups-lib.git#readme",
+    "license": "MIT",
+    "main": "./lib/index.js",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/kronsi/ups-lib.git"
+    },
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "private": false
+  }
+  
