@@ -16,6 +16,120 @@ var ups = new upsAPI({
 
 
 /**
+ * Pickup
+ * 
+ */
+
+/**
+ * Pickup Piece Type
+ * 
+ * ServiceCode:
+ * 001 - UPS Next Day Air
+ * 002 - UPS Next Day Air
+ * 003 - UPS Ground
+ * 004 - UPS Ground, UPS Standard
+ * 007 - UPS Worldwide Express
+ * 008 - UPS Worldwide Expedited
+ * 011 - UPS Standard
+ * 012 - UPS Three Day Select
+ * 013 - UPS Next Day Air Saver
+ * 014 - UPS Next Day Air Early A.M.
+ * 021 - UPS Economy
+ * 031 - UPS Basic
+ * 054 - UPS Worldwide Express Plus
+ * 059 - UPS Second Day Air A.M.
+ * 064 - UPS Express NA1
+ * 065 - UPS Saver
+ * 082 - UPS Today Standard
+ * 083 - UPS Today Dedicated Courier
+ * 084 - UPS Today Intercity
+ * 085 - UPS Today Express
+ * 086 - UPS Today Express Saver
+ * 
+ * ContainerCode:
+ * 01 = PACKAGE
+ * 02 = UPS LETTER
+ */
+
+/**
+ * Pickup Method Type
+ * 
+ * 00 = No payment needed
+ * 01 = Pay by shipper account
+ * 02 = Pay by return service
+ * 03 = Pay by charge card
+ * 04 = Pay by tracking number
+ */
+
+/**
+ * Pickup Charge Card
+ * 
+ * CardType:
+ * 01 = American Express
+ * 03 = Discover	
+ * 04 = Mastercard
+ * 06 = VISA
+ * 
+ * ExpirationDate: yyyyMM
+ * SecurityCode: 3 or 4 digit
+ */
+
+ ups.pickup({
+    Request: {
+      RequestOption: "",
+      TransactionReference: {
+          CustomerContext: ""
+      }      
+    },
+    RatePickupIndicator: "Y",
+    TaxInformationIndicator: "Y",
+    Shipper: {
+        Account: {
+            AccountNumber: ups.options.ShipperNumber,
+            AccountCountryCode: ""
+        }
+    },
+    PickupDateInfo: {
+        CloseTime: "",
+        ReadyTime: "",
+        PickupDate: ""//YYYYMMDD
+    },
+    PickupAddress: {
+        CompanyName: "",
+        ContactName: "",
+        AddressLine: "",
+        City: "",
+        StateProvince: "",
+        PostalCode: "",
+        CountryCode: "",
+        Phone: {
+            Number: "",            
+        },
+        ResidentialIndicator: "Y"
+    },
+    AlternateAddressIndicator: "Y",
+    PickupPiece: {
+        ServiceCode: "001",
+        Quantity: 1,
+        DestinationCountryCode: "",
+        ContainerCode: "01"
+    },
+    TotalWeight: {
+        Weight: "1.0",
+        UnitOfMeasurement: "KGS"
+    },
+    OverweightIndicator: "N",
+    PaymentMethod: "01"
+    
+  }, function(err, res) {
+    if(err) {
+      return console.log("err:", err);
+    }
+  
+    console.log(res);
+});
+
+/**
  * Tracking
  */
  ups.tracking({
