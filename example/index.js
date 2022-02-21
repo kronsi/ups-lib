@@ -14,18 +14,149 @@ var ups = new upsAPI({
   imperial: false // set to false for metric
 });
 
+
+/**
+ * Tracking
+ */
+ ups.tracking({
+    Request: {
+      TransactionReference: {
+        CustomerContext: ""
+      },
+      RequestAction: "Track",      
+      RequestOption: "activity",
+      
+    },    
+    InquiryNumber: "YOUR SHIPMENT ID here"
+  }, function(err, res) {
+    if(err) {
+      return console.log("err:", err.detail.Errors);
+    }
+  
+    console.log(res);
+}); 
+
+
+
+/**
+ * TimeInTransit
+ */
+ ups.timeintransit({
+    Request: {
+      RequestOption: "TNT",
+      TransactionReference: {
+          CustomerContext: ""
+      },
+      RequestAction: "TimeInTransit",  
+    },
+    ShipFrom: {
+        Address: {
+            City: "From City here",
+            PostalCode: "From ZipCode here",
+            CountryCode: "From Country here",
+        }
+    },
+    ShipTo: {
+        Address: {
+            City: "To City here",
+            PostalCode: "To ZipCode here",
+            CountryCode: "From Country here",
+            StateProvinceCode: "",
+        }
+    },
+    Pickup: {
+        Date: "20220222"//YYYYMMDD
+    },    
+    ShipmentWeight: {
+        Weight: "",
+        UnitOfMeasurement: {
+            Code: "KGS",
+            Description: "Killogramm",        
+        }
+    },
+    TotalPackagesInShipment: "",
+    InvoiceLineTotal: {
+        CurrencyCode: "EUR",
+        MonetaryValue: ""
+    },
+    MaximumListSize: 1
+    
+  }, function(err, res) {
+    if(err) {
+      return console.log("err:", err);
+    }
+  
+    console.log(res);
+});
+
+
+/**
+ * TimeInTransit
+ */
+ ups.timeintransit({
+    Request: {
+      RequestOption: "TNT",
+      TransactionReference: {
+          CustomerContext: ""
+      },
+      RequestAction: "TimeInTransit",  
+    },
+    ShipFrom: {
+        Address: {
+            City: "From City here",
+            PostalCode: "From ZipCode here",
+            CountryCode: "From Country here",
+        }
+    },
+    ShipTo: {
+        Address: {
+            City: "To City here",
+            PostalCode: "To ZipCode here",
+            CountryCode: "From Country here",
+            StateProvinceCode: "",
+        }
+    },
+    Pickup: {
+        Date: "20220222"//YYYYMMDD
+    },    
+    ShipmentWeight: {
+        Weight: "",
+        UnitOfMeasurement: {
+            Code: "KGS",
+            Description: "Killogramm",        
+        }
+    },
+    TotalPackagesInShipment: "",
+    InvoiceLineTotal: {
+        CurrencyCode: "EUR",
+        MonetaryValue: ""
+    },
+    MaximumListSize: 1
+    
+  }, function(err, res) {
+    if(err) {
+      return console.log("err:", err);
+    }
+  
+    console.log(res);
+});
+
 /**
  *  Rates
  */
  ups.rates({
   Request: {
-    RequestOption: "Rate",
+    RequestOption: "Shop",
     TransactionReference: {
         CustomerContext: "Time2ship"
     },  
   },
-  
-  
+  PickupType: {
+    Code: "01"//01=package, 19=envelope
+  },
+  CustomerClassification: {
+    Code: "00"
+  },
   Shipment: {
     Shipper: {
         ShipperNumber: ups.options.ShipperNumber,
@@ -42,11 +173,7 @@ var ups = new upsAPI({
             CountryCode: "From Country here",
             StateProvinceCode: "",
         }
-    }, 
-    Service: {
-        Code: "03",
-        Description: "Service Code"
-    },  
+    },    
     Package: {
         PackagingType: {
             Code: "02",//02=piece, 01=envelope
@@ -64,7 +191,7 @@ var ups = new upsAPI({
         PackageWeight: {
             UnitOfMeasurement: {
                 Code: "KGS",
-                Description: "KILLOGRAMM"
+                Description: "Killogramm"
             },
             Weight: ""
         }
