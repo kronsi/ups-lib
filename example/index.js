@@ -119,12 +119,28 @@ var ups = new upsAPI({
     
     
     
-  }, function(err, res) {
+  }, function(err, resShipment) {
     if(err) {
       return console.log("err:", err.detail.Errors);
     }
   
-    console.log(res);
+    console.log(resShipment);
+
+    let {ShipmentDigest} = resShipment.ShipmentResults;
+
+    ups.accept({
+        Request: {      
+            RequestAction: "ShipAccept",
+            TransactionReference: {
+                CustomerContext: "Context"
+            }            
+        },
+        ShipmentDigest: ShipmentDigest
+      }, function(err, res) {
+        if(err) {
+            return console.log("err:", err.detail.Errors);
+        }        
+    })
 });
 
 /**
