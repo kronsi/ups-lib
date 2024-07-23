@@ -1,4 +1,5 @@
 node_modules
 example/test.js
 example/request.xml
+example/store.json
 .DS_Store
