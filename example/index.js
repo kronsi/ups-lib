@@ -122,13 +122,7 @@ ups.pickup({
         },
         OverweightIndicator: "N",
         PaymentMethod: "01"
-        
-      }, function(err, res) {
-        if(err) {
-          return console.log("err:", err);
-        }
-      
-        console.log(res);
+               
 }).then((response) => {
     console.log("response", response.PickupRateResponse);
 })
@@ -312,3 +306,40 @@ ups.timeInTransit({
 }).then((response) => {
     console.log("response", response.emsResponse);
 }); 
+
+ups.uploadCommercialDocument({
+    Request: {
+        RequestOption: null,
+        TransactionReference: {
+            CustomerContext: "my reference"
+        }
+    },
+    ShipperNumber: "ups.shipperNumber",
+    UserCreatedForm: {
+        UserCreatedFormDocumentType: "010",
+        UserCreatedFormFile: "b64",
+        UserCreatedFormFileFormat: "pdf",
+        UserCreatedFormFileName: "fileName"
+    }
+}).then((response) => {
+    console.log("response", JSON.stringify(response));
+})
+
+
+ups.pushToImageRepository({
+    Request: {
+        TransactionReference: {
+            CustomerContext: "Your Customer Context",
+        }
+    },
+    ShipperNumber: "ups.shipperNumber",
+    FormsHistoryDocumentID: {
+        DocumentID: "2013-12-04-00.15.33.207814"
+    },
+    ShipmentIdentifier: "1Z30YYXXXXXXXXXXX",
+    ShipmentDateAndTime: "2013-12-04-00.15.33",
+    ShipmentType: "1",
+    TrackingNumber: "1Z30YYXXXXXXXXXXX"
+}).then((response) => {
+    console.log("response", JSON.stringify(response));
+})
